@@ -5,7 +5,7 @@ from predikat import Predikat
 
 status = ""
 u_status = np.empty(9, dtype=object)
-z_status = ["Excellent", "Good", "Fair", "VeryGood", "Good", "Poor", "Fair", "Poor", "Poor"]
+z_status = ["excellent", "good", "fair", "verygood", "good", "poor", "fair", "poor", "poor"]
 
 def hitung_u(gpa, gre):
     u_status[0] = min(gpa.high(), gre.high())
@@ -28,28 +28,48 @@ def max_method_hitung_z():
 
     return max_val
 
-def centroid_method_hitung_z(round_u_status):
-    predikat_centers = [65, 70, 80, 90, 95]
+#Centroid Method
+def hitung_centroid_crisp():
+  count = 0
+  divider = 0
 
-    if len(predikat_centers) != len(round_u_status):
-        print("Error: Number of predikat_centers does not match number of round_u_status")
-        return None
+  global status
+  for i in range(len(round_u_values)):
+    if(round_u_values[i] > 0):
+      divider += u_status[i]
+      if(i == 0): count += (round_u_values[i] * 95)
+      elif(i == 1): count += (round_u_values[i] * 90)
+      elif(i == 3 or i == 4): count += (round_u_values[i] * 80)
+      elif(i == 2 or i == 6) : count+= (round_u_values[i] * 70)
+      else : count += (round_u_values[i] * 65)
 
-    numerator = 0
-    denominator = 0
+  return count / divider
 
-    for i, value in enumerate(round_u_status):
-        center = predikat_centers[i]
-        weight = value / 100  
 
-        numerator += weight * center
-        denominator += weight  
 
-    if denominator == 0:
-        return 0
-    else:
-        crisp_index = numerator / denominator
-        return crisp_index
+def hitung_value_centroid(predikat):
+    value = 0
+    decision = ""
+
+    if value < predikat.excellent():
+        value = predikat.excellent()
+        decision = "excellent"
+    if value < predikat.very_good():
+        value = predikat.very_good()
+        decision = "very good"
+    if value < predikat.good():
+        value = predikat.good()
+        decision = "good"
+    if value < predikat.fair():
+        value = predikat.fair()
+        decision = "fair"
+    if value < predikat.poor():
+        value = predikat.poor()
+        decision = "poor"
+
+    return decision
+
+
 
 def bulatkan_nilai(nilai, precision):
     return round(nilai / precision) * precision
@@ -78,6 +98,12 @@ max_val = bulatkan_nilai(max_method_hitung_z(), 0.25)
 print("Max Method:")
 print("Bobot:", max_val, "\ndengan predikat:", status)
 
-crisp_index = centroid_method_hitung_z(round_u_values)
+bobot = max_method_hitung_z()
+predikat = Predikat(value)
+crisp_index = hitung_centroid_crisp()
+predikat_centroid = Predikat(crisp_index)
+
 print("\nCentroid Method:")
 print("Crisp Decision Index:", crisp_index)
+print("dengan predikat:", hitung_value_centroid(predikat_centroid))
+

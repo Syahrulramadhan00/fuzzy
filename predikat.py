@@ -12,17 +12,18 @@ class Predikat:
         if self.predikat >= self.titik1 and self.predikat <= self.titik2:
             return 1
         elif self.predikat > self.titik2 and self.predikat < self.titik3:
-            return (self.titik3 - self.predikat) / (self.titik3 - self.titik2)
+            return (float)(self.titik3 - self.predikat) / (self.titik3 - self.titik2)
         else:
             return 0
+        pass
 
     def fair(self):
         if self.predikat == self.titik3 :
             return 1
         elif self.predikat > self.titik2 and self.predikat < self.titik3:
-            return (self.predikat - self.titik2) / (self.titik3 - self.titik2)
+            return (float)(self.predikat - self.titik2) / (self.titik3 - self.titik2)
         elif self.predikat > self.titik3 and self.predikat < self.titik4:
-            return (self.titik4 - self.predikat) / (self.titik4 - self.titik3)
+            return (float)(self.titik4 - self.predikat) / (self.titik4 - self.titik3)
         else:
             return 0
 
@@ -30,9 +31,9 @@ class Predikat:
         if self.predikat == self.titik4 :
             return 1
         elif self.predikat > self.titik3 and self.predikat < self.titik4:
-            return (self.predikat - self.titik3) / (self.titik4 - self.titik3)
+            return (float)(self.predikat - self.titik3) / (self.titik4 - self.titik3)
         elif self.predikat > self.titik4 and self.predikat < self.titik5:
-            return (self.titik5 - self.predikat) / (self.titik5 - self.titik4)
+            return (float)(self.titik5 - self.predikat) / (self.titik5 - self.titik4)
         else:
             return 0
 
@@ -40,15 +41,15 @@ class Predikat:
         if self.predikat == self.titik5 :
             return 1
         elif self.predikat > self.titik4 and self.predikat < self.titik5:
-            return (self.predikat - self.titik4) / (self.titik5 - self.titik4)
+            return (float)(self.predikat - self.titik4) / (self.titik5 - self.titik4)
         elif self.predikat > self.titik5 and self.predikat < self.titik6:
-            return (self.titik6 - self.predikat) / (self.titik6 - self.titik5)
+            return (float)(self.titik6 - self.predikat) / (self.titik6 - self.titik5)
         else:
             return 0
 
     def excellent(self):
         if self.predikat >= self.titik5 and self.predikat <= self.titik6:
-            return (self.predikat - self.titik5) / (self.titik6 - self.titik5)
+            return (float)(self.predikat - self.titik5) / (self.titik6 - self.titik5)
         elif self.predikat > self.titik6:
             return 1
         else:
